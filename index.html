@@ -1,10 +1,6 @@
 <html>
   <head>
-    <script
-      src="jquery.min.js"
-      type="text/javascript"
-      charset="utf-8"
-    ></script>
+    <script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="raphael-2.1.4.min.js"></script>
     <script src="justgage.js"></script>
   </head>
@@ -18,8 +14,7 @@
         id="Aatrox"
         title="Aatrox"
         alt="6300"
-		
-        style="width: 300px; height: 300px;"
+        style="width: 300px; height: 300px"
         onclick="AatroxIcon()"
         src="images/mimido.jpeg"
       />
@@ -39,6 +34,12 @@
           url,
           { access_token: accessToken, params: estado },
           (data, status) => {
+            if (data.return_value == 0) {
+              AatroxIcon("images/mimido.jpeg");
+            } else {
+              AatroxIcon("images/jepeto.jpeg");
+            }
+
             if (status == "success") {
               if (estado == "on") {
                 estado = "off";
@@ -56,22 +57,15 @@
       var body = document.querySelector("body");
 
       var Aatrox = document.getElementById("Aatrox");
-      var Aatroxclicks = 0;
-      function AatroxIcon() {
-        Aatroxclicks = Aatroxclicks + 1;
-        if (Aatroxclicks % 2 != 0) {
-			Aatrox.setAttribute("src", "images/jepeto.jpeg");
-        } else {
-          
-		  Aatrox.setAttribute("src", "images/mimido.jpeg");
-        }
+
+      function AatroxIcon(valor) {
+        Aatrox.setAttribute("src", valor);
       }
 
       toggle.onclick = function () {
         toggle.classList.toggle("active");
         body.classList.toggle("active");
         estadoFoco();
-		AatroxIcon();
       };
     </script>
   </body>
