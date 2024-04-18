@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <script
+      src="jquery.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    <script src="raphael-2.1.4.min.js"></script>
+    <script src="justgage.js"></script>
+  </head>
+
+  <body>
+    <div class="acomodar">
+      <span class="on-off"></span>
+    </div>
+    <div id="container">
+      <img
+        id="Aatrox"
+        title="Aatrox"
+        alt="6300"
+		
+        style="width: 300px; height: 300px;"
+        onclick="AatroxIcon()"
+        src="images/mimido.jpeg"
+      />
+
+      <button class="toggle">Cambiar estado foco</button>
+    </div>
+
+    <script>
+      var accessToken = "24f27fab26c278bf25fde775f94a5d510fc9beb8";
+      var deviceID = "e00fce680fc0e5b73b2899b8";
+
+      var url = "https://api.particle.io/v1/devices/" + deviceID + "/led";
+      var estado = "on";
+
+      function estadoFoco() {
+        $.post(
+          url,
+          { access_token: accessToken, params: estado },
+          (data, status) => {
+            if (status == "success") {
+              if (estado == "on") {
+                estado = "off";
+              } else {
+                estado = "on";
+              }
+            } else {
+              alert("ocurrio un error ");
+            }
+          }
+        );
+      }
+
+      var toggle = document.getElementById("container");
+      var body = document.querySelector("body");
+
+      var Aatrox = document.getElementById("Aatrox");
+      var Aatroxclicks = 0;
+      function AatroxIcon() {
+        Aatroxclicks = Aatroxclicks + 1;
+        if (Aatroxclicks % 2 != 0) {
+			Aatrox.setAttribute("src", "images/jepeto.jpeg");
+        } else {
+          
+		  Aatrox.setAttribute("src", "images/mimido.jpeg");
+        }
+      }
+
+      toggle.onclick = function () {
+        toggle.classList.toggle("active");
+        body.classList.toggle("active");
+        estadoFoco();
+		AatroxIcon();
+      };
+    </script>
+  </body>
+</html>
